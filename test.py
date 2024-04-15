@@ -1,11 +1,12 @@
-from my_classes import Person, Experiment
+from my_classes import Subject, Experiment
 
 def test():
-    person = Person("John Doe", 30)
-    person.save()
-    print(f"Estimated maximum heart rate for John Doe: {person.estimate_max_hr()} bpm")
-    experiment = Experiment("Heart Rate Test", "2024-04-15", person.name)
+    subject = Subject("John Doe", "1994-04-15")
+    subject.save()
+    print(f"Estimated maximum heart rate for John Doe: {subject.estimate_max_hr()} bpm")
+    experiment = Experiment("Heart Rate Test 6.2", "2024-04-15", subject.name)
     experiment.save()
 
 if __name__ == "__main__":
     test()
+

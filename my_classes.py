@@ -1,16 +1,27 @@
 import json
+from datetime import datetime
 
 class Person:
-    def __init__(self, name, age):
+    def __init__(self, name, birthdate):
         self.name = name
-        self.age = age
+        self._birthdate = birthdate  # Hidden attribute
 
     def save(self):
         with open(f'{self.name}.json', 'w') as f:
-            json.dump(self.__dict__, f)
+            json.dump({'name': self.name, 'birthdate': self._birthdate}, f)
 
+    def get_birthdate(self):
+        return self._birthdate
+
+class Subject(Person):
     def estimate_max_hr(self):
-        return 220 - self.age
+        birthdate = datetime.strptime(self.get_birthdate(), '%Y-%m-%d')
+        today = datetime.today()
+        age = today.year - birthdate.year - ((today.month, today.day) < (birthdate.month, birthdate.day))
+        return 220 - age
+
+class Examiner(Person):
+    pass
 
 class Experiment:
     def __init__(self, name, date, subject):
